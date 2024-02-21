@@ -156,4 +156,5 @@ export default defineConfig({
   define: {
     serverapi: "http://localhost:8432",
   },
+  history: { type: 'hash' }, // 默认是 browser
 });
