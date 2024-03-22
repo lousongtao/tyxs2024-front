@@ -11,7 +11,7 @@ const ReturnConfirmModal = (props) => {
       })
       return;
     }
-    props.handleReturn(inputReason);
+    props.handleReturn(inputReason ? inputReason: '');
     setInputReason('')
   };
 
