@@ -6,8 +6,8 @@ import {
   InputNumber,
   message,
   Modal, notification,
-  Popconfirm, Row,
-  Select,
+  Popconfirm, Radio, Row,
+  Select, Space,
   Spin,
   Upload
 } from "antd";
@@ -35,7 +35,11 @@ const WorksModal = (props) => {
     'application/vnd.openxmlformats-officedocument.presentationml.presentation';
   const unacceptFileType = 'qsv,qlv,rar,zip,7z,tar';
   const [form] = Form.useForm();
-
+  const TOPIC_agws = '爱国卫生与健康生活方式';
+  const TOPIC_jbfz = '重大疾病防治';
+  const TOPIC_rqjk = '重点人群健康';
+  const TOPIC_zycj = '中医药健康促进';
+  const TOPIC_qita = '其它';
   const handleSave = async (status) => {
     try{
       const values = await form.validateFields();
@@ -57,7 +61,9 @@ const WorksModal = (props) => {
       ...form.getFieldsValue(),
       status,
       fileUrl: fileList.length === 0 ? null : fileList[0].response
-    }
+    };
+
+    if (payload.topic === '其它') payload.topic = payload.otherTopic;
     setLoadData(true);//这个要在payload构造之后, 否则改动state会引起effect, 进而form值会更改为最初的值
 
     payload.prizeList = editObj.prizeList;
@@ -140,7 +146,29 @@ const WorksModal = (props) => {
               <Select.Option value={33} key={33}>系列作品 - 短视频(小于10分钟)</Select.Option>
               <Select.Option value={34} key={34}>系列作品 - 长视频(大于10分钟)</Select.Option>
             </Select.OptGroup>
+            <Select.OptGroup label="舞台表演类" key={5}>
+              <Select.Option value={51} key={51}>演讲</Select.Option>
+              <Select.Option value={52} key={52}>脱口秀</Select.Option>
+              <Select.Option value={53} key={53}>舞台剧</Select.Option>
+            </Select.OptGroup>
           </Select>
+        </Form.Item>
+        <Form.Item name="topic" label="主题" rules={[{required: true,message: '请选择主题'}]} >
+          <Radio.Group>
+            <Space direction="vertical">
+              <Radio value={TOPIC_agws}>{TOPIC_agws}</Radio>
+              <Radio value={TOPIC_jbfz}>{TOPIC_jbfz}</Radio>
+              <Radio value={TOPIC_rqjk}>{TOPIC_rqjk}</Radio>
+              <Radio value={TOPIC_zycj}>{TOPIC_zycj}</Radio>
+              <Radio value={TOPIC_qita}>
+                {TOPIC_qita}
+                <Form.Item name="otherTopic">
+                  <Input style={{width:400}} disabled={props.viewMode}/>
+                </Form.Item>
+
+              </Radio>
+            </Space>
+          </Radio.Group>
         </Form.Item>
         <Form.Item
           name="poster"
@@ -177,11 +205,11 @@ const WorksModal = (props) => {
         </Form.Item>
         <Form.Item
           name="mediaPlayDate"
-          extra='首次刊播于2023年内的作品'
+          extra='首次刊播于2024年内的作品'
           rules={[{required: true,message: '请输入首次刊播/刊登/出版时间'}]}
           label="首次刊播/刊登/出版时间">
           <DatePicker
-            disabledDate={date => date.isAfter('2024-01-01') || date.isBefore('2023-01-01')}
+            disabledDate={date => date.isAfter('2025-01-01') || date.isBefore('2024-01-01')}
             placeholder="刊播时间"/>
         </Form.Item>
         <Form.Item
@@ -267,6 +295,13 @@ const WorksModal = (props) => {
       //要先把form清空, 再重新设置新的值, 否则当add的时候, 传入空对象, 无法覆盖之前的显示
       form.resetFields();
       form.setFieldsValue(props.editObj);
+      if (props.editObj.topic !== TOPIC_agws
+        &&props.editObj.topic !== TOPIC_jbfz
+        &&props.editObj.topic !== TOPIC_rqjk
+        &&props.editObj.topic !== TOPIC_zycj){
+        form.setFieldValue('topic', TOPIC_qita);
+        form.setFieldValue('otherTopic', props.editObj.topic);
+      }
 
       //这里会导致effect进入死循环, set方法修改upload控件, 然后触发下一轮effect, 需要用判断句式终止不停的set
       if (props.editObj.fileUrl){

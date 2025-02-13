@@ -1,11 +1,9 @@
 
 // Validates that the input string is a valid date formatted as "yyyy-MM/-d"
 export function checkDateFormat(dateString: string){
-  console.log('date = ' + dateString);
   // First check for the pattern
   if(!/^\d{4}-\d{2}-\d{2}$/.test(dateString))
     return false;
-  console.log('pass 1')
   // Parse the date parts to integers
   const parts = dateString.split("-");
   const day = parseInt(parts[2], 10);
@@ -15,7 +13,6 @@ export function checkDateFormat(dateString: string){
   // Check the ranges of month and year
   if(year < 1000 || year > 3000 || month === 0 || month > 12)
     return false;
-  console.log('pass 2')
   const monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
   // Adjust for leap years

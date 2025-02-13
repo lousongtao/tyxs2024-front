@@ -31,7 +31,7 @@ const Welcome: React.FC = () => {
     <PageContainer>
       <Card>
         <Alert
-          message='欢迎参与健康科普推优选树活动'
+          message='欢迎参与健康科普引领展示活动'
           type="success"
           showIcon
           banner

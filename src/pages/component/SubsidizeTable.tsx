@@ -159,7 +159,7 @@ const SubsidizeTable = (props) => {
       planNo: '计划编号',
       planName: '计划名称',
       planType: '计划类型',
-      amount: '0'
+      amount: 0
     };
     setDataSource([...dataSource, newData]);
     setCount(count + 1);
@@ -170,6 +170,10 @@ const SubsidizeTable = (props) => {
     //check date format
     if (!checkDateFormat(row.date)){
       message.error("获资助时间格式不对: "+ row.date);
+      return;
+    }
+    if (Number.isNaN(Number(row.amount))) {
+      message.error("资助金额格式不对，输入非数字格式。");
       return;
     }
     //检查是否序号存在冲突, 冲突的序号, 在下次载入时会导致行操作失败, key值产生不正确.

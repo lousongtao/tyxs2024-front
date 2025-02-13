@@ -10,6 +10,6 @@ const { REACT_APP_ENV = 'dev' } = process.env;
 export default defineConfig({
 
   define: {
-    serverapi: "http://wcserver.shbxjk.cn",
+    serverapi: "http://workscollect.shbxjk.cn",
   },
 });

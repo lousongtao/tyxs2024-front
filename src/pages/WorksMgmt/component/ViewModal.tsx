@@ -4,8 +4,8 @@ import {
   Form,
   Input,
   InputNumber,
-  Modal, notification, Popconfirm,
-  Select
+  Modal, notification, Popconfirm, Radio,
+  Select, Space
 } from "antd";
 import {getTjdwAccount, returnWorks} from "@/services/ant-design-pro/api";
 import React, {useEffect, useState} from "react";
@@ -62,7 +62,7 @@ const ViewModal = (props) => {
               <Select.Option value={13} key={13}>海报折页</Select.Option>
               <Select.Option value={14} key={14}>其它</Select.Option>
             </Select.OptGroup>
-            <Select.OptGroup label="图书类" key={1}>
+            <Select.OptGroup label="图书类" key={4}>
               <Select.Option value={41} key={41}>图书类</Select.Option>
             </Select.OptGroup>
             <Select.OptGroup label="音频类" key={2}>
@@ -77,7 +77,15 @@ const ViewModal = (props) => {
               <Select.Option value={33} key={33}>系列作品 - 短视频(小于10分钟)</Select.Option>
               <Select.Option value={34} key={34}>系列作品 - 长视频(大于10分钟)</Select.Option>
             </Select.OptGroup>
+            <Select.OptGroup label="舞台表演类" key={5}>
+              <Select.Option value={51} key={51}>演讲</Select.Option>
+              <Select.Option value={52} key={52}>脱口秀</Select.Option>
+              <Select.Option value={53} key={53}>舞台剧</Select.Option>
+            </Select.OptGroup>
           </Select>
+        </Form.Item>
+        <Form.Item name="topic" label="主题">
+          <Input style={{width:400}} disabled/>
         </Form.Item>
         <Form.Item
           name="tjdwTag"
