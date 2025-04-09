@@ -186,8 +186,8 @@ const ViewModal = (props) => {
   //java 保存的路径中, 有时候正斜线, 有时候反斜线
   const getReccFormUrlLink = () => {
     if (editObj?.reccFormFileUrl){
-      const segs = editObj.reccFormFileUrl.replace(/\\/g, '/').split('/WorksReccForm/');
-      return <a href={'http://workscollect.shbxjk.cn/WorksReccForm/' + segs[1]} target='_blank'>点击查看</a>
+      const segs = editObj.reccFormFileUrl.replace(/\\/g, '/').split('/WorksFiles/');
+      return <a href={'http://workscollect.shbxjk.cn/WorksFiles/' + segs[1]} target='_blank'>点击查看</a>
     }
     return <h4 style={{color: 'red'}}>申报单位未提交推荐表</h4>
   }

@@ -336,7 +336,8 @@ const WorksModal = (props) => {
     newFileList.splice(index, 1);
     setFileList(newFileList);
     // setAttachment((newFileList && newFileList.length > 0) ? newFileList.map(f => f.response) : undefined);
-    const fileName = deleteTempFile(file.response);
+    if (file.response)
+      deleteTempFile(file.response);
   };
 
   const handleBeforeUpload = (file) => {

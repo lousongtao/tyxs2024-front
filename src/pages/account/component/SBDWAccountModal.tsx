@@ -57,7 +57,7 @@ const SBDWAccountModal = (props) => {
       setLoadData(false);
       notification['error']({
         message: '保存帐号出错.',
-        description: error?.info?.message
+        description: error.response.data.message
       })
     }
   };

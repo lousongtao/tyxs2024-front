@@ -55,9 +55,10 @@ const TJDWAccountModal = (props) => {
       }
     } catch (error) {
       setLoadData(false);
+      console.error(error);
       notification['error']({
         message: '保存帐号出错.',
-        description: error?.info?.message
+        description: error.response.data.message
       })
     }
   };
